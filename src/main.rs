@@ -1,5 +1,6 @@
 use oklab::*;
 
+#[inline]
 fn difference(lab1: Oklab, lab2: Oklab) -> f32 {
     // HyAB color difference formula
     // Absolute difference between L, Euclidian distance between a and b
@@ -7,17 +8,17 @@ fn difference(lab1: Oklab, lab2: Oklab) -> f32 {
     (lab1.l - lab2.l).abs() + (lab1.a - lab2.a).hypot(lab1.b - lab2.b)
 }
 
-fn main() {
-    // Value to compare with
-    let input = RGB {
-        r: 0,
-        g: 0,
-        b: 0
-    };
-    let input_lab = srgb_to_oklab(input);
+fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
+    let input_lab = srgb_to_oklab(rgb);
 
     let mut max = 0.0;
-    let mut saved = RGB { r: 99, g: 99, b: 99 }; // L ~= 0.5
+    // L ~= 0.5, a ~= 0.0, b ~= 0.0
+    // If your result is this, something went wrong
+    let mut saved = RGB {
+        r: 99,
+        g: 99,
+        b: 99
+    };
 
     for r in 0..=255 {
         for g in 0..=255 {
@@ -29,12 +30,24 @@ fn main() {
 
                 if delta > max {
                     max = delta;
-                    saved = RGB { r, g, b };
+                    saved = test;
                 }
             }
         }
     }
 
-    println!("Opposite: {:?}", saved);
-    println!("Delta: {:?}", max);
+    (saved, max)
+}
+
+fn main() {
+    let input = RGB {
+        r: 0,
+        g: 0,
+        b: 0
+    };
+    
+    let color = opposite(input);
+
+    println!("Opposite: {:?}", color.0);
+    println!("Delta: {:?}", color.1);
 }
