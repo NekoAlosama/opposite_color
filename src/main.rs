@@ -51,8 +51,8 @@ fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
 fn main() {
     let input = RGB {
         r: 255,
-        g: 0,
-        b: 255,
+        g: 255,
+        b: 0,
     };
 
     let color = opposite(input);
