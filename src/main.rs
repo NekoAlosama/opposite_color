@@ -20,7 +20,7 @@ fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
     let mut saved = RGB {
         r: 99,
         g: 99,
-        b: 99
+        b: 99,
     };
 
     // All opposite colors are observed to be 1-bit colors
@@ -28,7 +28,11 @@ fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
     for r in &[0, 255] {
         for g in &[0, 255] {
             for b in &[0, 255] {
-                let test = RGB { r: *r, g: *g, b: *b };
+                let test = RGB {
+                    r: *r,
+                    g: *g,
+                    b: *b,
+                };
                 let test_lab = srgb_to_oklab(test);
 
                 let delta = difference(input_lab, test_lab);
@@ -46,11 +50,11 @@ fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
 
 fn main() {
     let input = RGB {
-        r: 0,
+        r: 255,
         g: 0,
-        b: 0
+        b: 255,
     };
-    
+
     let color = opposite(input);
 
     println!("Opposite: {:?}", color.0);
