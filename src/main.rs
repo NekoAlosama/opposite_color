@@ -1,21 +1,5 @@
 use oklab::*;
 
-/*
-Count of the result of opposite colors
-    as in, if black was the result from opposite(RGB {something}),
-    then its counter is incrememented
-
-Black: 11_294_432,
-Yellow: 3_600_860,
-Green: 1_645_447,
-Magenta: 236_112,
-White: 353,
-Cyan: 12,
-Red: 0,
-Blue: 0,
-
-*/
-
 #[inline]
 fn difference(lab1: Oklab, lab2: Oklab) -> f32 {
     // HyAB color difference formula
