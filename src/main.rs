@@ -25,14 +25,10 @@ fn opposite(rgb: RGB<u8>) -> (RGB<u8>, f32) {
 
     // All opposite colors are observed to be 1-bit colors
     // So, only 0 and 255 are possible color channel values
-    for r in &[0, 255] {
-        for g in &[0, 255] {
-            for b in &[0, 255] {
-                let test = RGB {
-                    r: *r,
-                    g: *g,
-                    b: *b,
-                };
+    for r in [0, 255] {
+        for g in [0, 255] {
+            for b in [0, 255] {
+                let test = RGB { r, g, b };
                 let test_lab = srgb_to_oklab(test);
 
                 let delta = difference(input_lab, test_lab);
